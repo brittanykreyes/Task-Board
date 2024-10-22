@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <title>Task Board</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Task Board</h1>
+        <button id="newTaskBtn">Add New Task</button>
+        
+        <div class="board">
+            <div class="column" id="notStarted">
+                <h2>Not Yet Started</h2>
+                <div class="task-list" data-status="not-started"></div>
+            </div>
+            <div class="column" id="inProgress">
+                <h2>In Progress</h2>
+                <div class="task-list" data-status="in-progress"></div>
+            </div>
+            <div class="column" id="completed">
+                <h2>Completed</h2>
+                <div class="task-list" data-status="completed"></div>
+            </div>
+        </div>
+        
+        <div id="taskModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Create Task</h2>
+                <label for="taskTitle">Title:</label>
+                <input type="text" id="taskTitle" required>
+                
+                <label for="taskDescription">Description:</label>
+                <textarea id="taskDescription"></textarea>
+                
+                <label for="taskDeadline">Deadline:</label>
+                <input type="date" id="taskDeadline" required>
+                
+                <button id="saveTask">Save Task</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
