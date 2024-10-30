@@ -25,7 +25,7 @@ $(document).ready(function() {
                 title,
                 description,
                 deadline,
-                status: 'not-started'
+                status: 'to-do'
             };
 
             let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -64,23 +64,38 @@ $(document).ready(function() {
             });
 
             // Drag and drop functionality
-            taskElement.attr('draggable', true);
-            taskElement.on('dragstart', function() {
-                $(this).addClass('dragging');
-                event.dataTransfer.setData('text/plain', task.title);
-            });
+            // taskElement.attr('draggable', true);
+            // taskElement.on('dragstart', function(event) {
+            //     $(this).addClass('dragging');
+            // });
 
-            $('.task-list').on('dragover', function(event) {
-                event.preventDefault();
-            });
+            // $('.task-list').on('dragover', function(event) {
+            //     event.preventDefault();
+            // });
+            $(".task").draggable({
+                opacity: 0.7,
+                zIndex: 100
+            })
 
-            $('.task-list').on('drop', function(event) {
-                const droppedTitle = event.dataTransfer.getData('text/plain');
-                const droppedTask = tasks.find(t => t.title === droppedTitle);
-                droppedTask.status = $(this).data('status');
-                localStorage.setItem('tasks', JSON.stringify(tasks));
-                loadTasks();
-            });
+
+            
+        
         });
     }
+
+    $('.task-list').droppable({
+        // accept: '.dragging',
+        drop: function(event,ui) {
+            const droppedTitle = ui.draggable[0].textContent.replace("Delete", "")
+            console.log(droppedTitle)
+
+            let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+            const droppedTask = tasks.find(t => t.title === droppedTitle);
+            droppedTask.status = $(event.target).data('status');
+            console.log(droppedTask.status)
+
+            localStorage.setItem('tasks', JSON.stringify(tasks));
+            loadTasks();
+        }
+      });
 });
